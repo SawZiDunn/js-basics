@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8" />
+        <title>Color</title>
+
+        <script>
+            // for select
+            function changeColor_0() {
+                document.querySelector("select").onchange = function () {
+                    document.querySelector("#name").style.color = this.value;
+                };
+            }
+
+            // for button
+            function changeColor_1() {
+                document.querySelectorAll("button").forEach((button) => {
+                    button.onclick = () => {
+                        document.querySelector("#name").style.color =
+                            button.dataset.color;
+                    };
+                });
+            }
+
+            document.addEventListener("DOMContentLoaded", changeColor_1);
+        </script>
+    </head>
+
+    <body>
+        <h2 id="name">Saw Zi Dunn</h2>
+
+        <select>
+            <option value="red">Red</option>
+            <option value="blue">Blue</option>
+            <option value="green">Green</option>
+        </select>
+        <br />
+
+        <button data-color="red">Red</button>
+        <button data-color="blue">Blue</button>
+        <button data-color="green">Green</button>
+    </body>
+</html>

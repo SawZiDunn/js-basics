@@ -1,3 +1,5 @@
+// return functions or accept functions as parameters
+
 function times(n) {
     return function (x) {
         return x * n;

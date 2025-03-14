@@ -6,7 +6,7 @@ function purchase(card) {
     console.log("purchase: ", card);
 }
 
-function once(fn) {
+function once(fn, next) {
     let done = false;
     return function (...args) {
         // captures done from outer scope via closure
@@ -14,10 +14,12 @@ function once(fn) {
         if (!done) {
             fn(...args);
             done = true;
+        } else {
+            next(); // calls next if it's already called once
         }
     };
 }
 
-purchase = once(purchase);
+purchase = once(purchase, () => console.log("calling next"));
 purchase(1); // after that, done is set to true
-purchase(2); // won't be called since done is true this time
+purchase(2); // next will be called since done is true this time,

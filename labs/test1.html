@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Online Timer</title>
+        <style>
+            table,
+            th,
+            td {
+                border: 1px solid black;
+                border-collapse: collapse;
+                padding: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <h1>Online Timer</h1>
+            <p>Current Time (1000x faster): <span id="current-time"></span></p>
+
+            <button id="edit">Edit</button>
+            <button id="done">Done</button>
+
+            <table id="time-table">
+                <tr>
+                    <th>Time</th>
+                    <th>Alert Word</th>
+                    <th class="remove-td" style="display: none">Action</th>
+                </tr>
+                <tr class="time">
+                    <td>
+                        <span class="time-display">09:00:00</span>
+                        <input
+                            type="time"
+                            class="time-input"
+                            style="display: none"
+                        />
+                    </td>
+                    <td>
+                        <span class="alert-display">Wake up</span>
+                        <input
+                            type="text"
+                            class="alert-input"
+                            style="display: none"
+                        />
+                    </td>
+                    <td class="remove-td" style="display: none">
+                        <button class="remove-btn">Remove</button>
+                    </td>
+                </tr>
+                <tr class="time">
+                    <td>
+                        <span class="time-display">09:10:00</span>
+                        <input
+                            type="time"
+                            class="time-input"
+                            style="display: none"
+                        />
+                    </td>
+                    <td>
+                        <span class="alert-display">Lunch time</span>
+                        <input
+                            type="text"
+                            class="alert-input"
+                            style="display: none"
+                        />
+                    </td>
+                    <td class="remove-td" style="display: none">
+                        <button class="remove-btn">Remove</button>
+                    </td>
+                </tr>
+                <tr class="time">
+                    <td>
+                        <span class="time-display">09:15:00</span>
+                        <input
+                            type="time"
+                            class="time-input"
+                            style="display: none"
+                        />
+                    </td>
+                    <td>
+                        <span class="alert-display">Take a break</span>
+                        <input
+                            type="text"
+                            class="alert-input"
+                            style="display: none"
+                        />
+                    </td>
+                    <td class="remove-td" style="display: none">
+                        <button class="remove-btn">Remove</button>
+                    </td>
+                </tr>
+            </table>
+
+            <button id="add" style="display: none">Add Row</button>
+        </div>
+
+        <script>
+            let Alerttime = [
+                { time: "09:00:00", message: "Wake up" },
+                { time: "09:10:00", message: "Lunch time" },
+                { time: "09:15:00", message: "Take a break" },
+            ];
+
+            let currentTime = new Date(2025, 8, 22, 8, 45, 0);
+
+            setInterval(() => {
+                currentTime.setSeconds(currentTime.getSeconds() + 1); // speed
+                const timeString = currentTime.toLocaleTimeString("en-GB", {
+                    hour12: false,
+                });
+                document.getElementById("current-time").textContent =
+                    timeString;
+
+                Alerttime.forEach((obj) => {
+                    if (timeString === obj.time) {
+                        alert(obj.message);
+                    }
+                });
+            }, 10);
+
+            document.getElementById("edit").addEventListener("click", () => {
+                document.getElementById("add").style.display = "block";
+                document.querySelectorAll(".remove-td").forEach((ele) => {
+                    ele.style.display = "block";
+                });
+
+                document.querySelectorAll(".time").forEach((row) => {
+                    let timeDisplay = row.querySelector(".time-display");
+                    let timeInput = row.querySelector(".time-input");
+                    let alertDisplay = row.querySelector(".alert-display");
+                    let alertInput = row.querySelector(".alert-input");
+                    let removeBtn = row.querySelector(".remove-btn");
+
+                    timeInput.value = timeDisplay.textContent.substring(0, 5);
+                    alertInput.value = alertDisplay.textContent;
+
+                    timeDisplay.style.display = "none";
+                    timeInput.style.display = "inline";
+                    alertDisplay.style.display = "none";
+                    alertInput.style.display = "inline";
+
+                    removeBtn.style.display = "inline";
+                    removeBtn.onclick = () => row.remove();
+                });
+            });
+
+            document.getElementById("done").addEventListener("click", () => {
+                Alerttime = [];
+
+                document.querySelectorAll(".remove-td").forEach((ele) => {
+                    ele.style.display = "none";
+                });
+
+                document.querySelectorAll(".time").forEach((row) => {
+                    let timeDisplay = row.querySelector(".time-display");
+                    let timeInput = row.querySelector(".time-input");
+                    let alertDisplay = row.querySelector(".alert-display");
+                    let alertInput = row.querySelector(".alert-input");
+                    let removeBtn = row.querySelector(".remove-btn");
+
+                    let timeVal = timeInput.value
+                        ? timeInput.value + ":00"
+                        : timeDisplay.textContent;
+                    let alertVal = alertInput.value || alertDisplay.textContent;
+
+                    timeDisplay.textContent = timeVal;
+                    alertDisplay.textContent = alertVal;
+
+                    timeDisplay.style.display = "inline";
+                    timeInput.style.display = "none";
+                    alertDisplay.style.display = "inline";
+                    alertInput.style.display = "none";
+
+                    removeBtn.style.display = "none";
+
+                    Alerttime.push({ time: timeVal, message: alertVal });
+                });
+
+                document.getElementById("add").style.display = "none";
+                console.log("Updated Alerts:", Alerttime);
+            });
+
+            document.getElementById("add").addEventListener("click", () => {
+                let table = document.getElementById("time-table");
+                let row = document.createElement("tr");
+                row.classList.add("time");
+                row.innerHTML = `
+                <td>
+                  <span class="time-display">00:00:00</span>
+                  <input type="time" class="time-input" style="display:none">
+                </td>
+                <td>
+                  <span class="alert-display">New Alert</span>
+                  <input type="text" class="alert-input" style="display:none">
+                </td>
+                <td class="remove-td" style="display: none;">
+                  <button class="remove-btn" style="display:none;">Remove</button>
+                </td>
+              `;
+                table.appendChild(row);
+            });
+        </script>
+    </body>
+</html>

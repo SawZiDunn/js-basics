@@ -1,0 +1,63 @@
+{
+    "student_name": "John Doe",
+    "student_id": "67011653",
+    "date_of_birth": "15/01/2001",
+    "date_of_admission": "15/08/2021",
+    "date_of_graduation": "20/05/2025",
+    "degree": "Bachelor of Engineering",
+    "major": "Computer Engineering",
+    "credit": {
+        "2021": {
+            "Semester 1": [
+                {
+                    "subject_id": "CPE101",
+                    "name": "Introduction to Programming",
+                    "credit": 3,
+                    "grade": "A"
+                },
+                {
+                    "subject_id": "MTH101",
+                    "name": "Calculus I",
+                    "credit": 3,
+                    "grade": "B+"
+                },
+                {
+                    "subject_id": "PHY101",
+                    "name": "Physics I",
+                    "credit": 3,
+                    "grade": "A-"
+                }
+            ],
+            "Semester 2": [
+                {
+                    "subject_id": "CPE102",
+                    "name": "Data Structures",
+                    "credit": 3,
+                    "grade": "A"
+                },
+                {
+                    "subject_id": "MTH102",
+                    "name": "Calculus II",
+                    "credit": 3,
+                    "grade": "B"
+                }
+            ]
+        },
+        "2022": {
+            "Semester 1": [
+                {
+                    "subject_id": "CPE201",
+                    "name": "Object-Oriented Programming",
+                    "credit": 3,
+                    "grade": "A"
+                },
+                {
+                    "subject_id": "ENG201",
+                    "name": "Technical English",
+                    "credit": 2,
+                    "grade": "B+"
+                }
+            ]
+        }
+    }
+}

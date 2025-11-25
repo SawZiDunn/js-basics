@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>BMI Calculator</title>
+        <link rel="stylesheet" href="bmi.css" />
+    </head>
+
+    <body>
+        <h1>BMI Calculator</h1>
+        <h3 style="text-decoration: underline">Standard BMI</h3>
+        <div class="container">
+            <table border="1">
+                <thead>
+                    <th>Classification</th>
+                    <th>BMI range - kg/m2</th>
+                </thead>
+                <tbody id="tbody"></tbody>
+            </table>
+            <div>
+                <form method="post">
+                    <div>
+                        <label for="name"> Name </label>
+                        <input type="text" id="name" name="name" />
+                    </div>
+                    <div>
+                        <label for="age"> Age </label>
+                        <input
+                            type="number"
+                            id="age"
+                            name="age"
+                            min="0"
+                            max="120"
+                        />
+                    </div>
+                    <div>
+                        <label>Gender </label>
+                        <label>
+                            <input
+                                type="radio"
+                                name="gender"
+                                id="gender"
+                                value="male"
+                            />
+                            Male
+                        </label>
+                        <label>
+                            <input
+                                type="radio"
+                                name="gender"
+                                id="gender"
+                                value="female"
+                            />
+                            Female
+                        </label>
+                    </div>
+                    <div>
+                        <label for="height">Height</label>
+                        <div>
+                            <input
+                                type="number"
+                                min="0"
+                                id="feet"
+                                placeholder="feet"
+                            />
+                            <input
+                                type="number"
+                                min="0"
+                                id="inches"
+                                placeholder="inches"
+                            />
+                        </div>
+                    </div>
+                    <div>
+                        <label for="weight">Weight</label>
+                        <input
+                            type="number"
+                            min="0"
+                            id="weight"
+                            name="weight"
+                            placeholder="pounds"
+                        />
+                    </div>
+                    <button type="button" onclick="calculate()">
+                        Calculate
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <script>
+            const standardBMI = [
+                ["Severe Thinness", " < 16"],
+                ["Moderate Thinness", "16 - 17"],
+                ["Mild Thinness	", "17 - 18.5"],
+                ["Normal", "18.5 - 25"],
+                ["Overweight", "25 - 30"],
+                ["Obese Class I	", "30 - 35"],
+                ["Obese Class II", "35 - 40"],
+                ["Obese Class III", " > 40"],
+            ];
+
+            let tbody = document.getElementById("tbody");
+
+            for (i = 0; i < standardBMI.length; i++) {
+                let tr = document.createElement("tr");
+                for (j = 0; j < standardBMI[0].length; j++) {
+                    let td = document.createElement("td");
+                    td.textContent = standardBMI[i][j];
+                    tr.appendChild(td);
+                }
+                tbody.appendChild(tr);
+            }
+        </script>
+
+        <h3>Result : <b id="result"></b></h3>
+        <div class="report">
+            <h4 style="text-decoration: underline">Report History</h4>
+            <table border="1">
+                <thead>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Height</th>
+                    <th>Weight</th>
+                    <th>BMI</th>
+                </thead>
+                <tbody id="resultBody"></tbody>
+            </table>
+        </div>
+        <script>
+            let reportData = [];
+            let resultDisplay = document.getElementById("result");
+
+            function calculate() {
+                let nameEle = document.getElementById("name");
+                let ageEle = document.getElementById("age");
+                let genderEle = document.querySelector(
+                    'input[name="gender"]:checked'
+                );
+                let feetEle = document.getElementById("feet");
+                let inchesEle = document.getElementById("inches");
+                let weightEle = document.getElementById("weight");
+
+                let inches =
+                    12 * Number(feetEle.value) + Number(inchesEle.value);
+
+                let bmiValue = (
+                    (Number(weightEle.value) / (inches * inches)) *
+                    703
+                ).toFixed(1);
+
+                if (bmiValue < 16) {
+                    resultDisplay.innerHTML = standardBMI[0][0];
+                } else if (bmiValue == 16 || bmiValue == 17) {
+                    resultDisplay.innerHTML = standardBMI[1][0];
+                } else if (bmiValue > 17 && bmiValue <= 18.5) {
+                    resultDisplay.innerHTML = standardBMI[2][0];
+                } else if (bmiValue > 40) {
+                    resultDisplay.innerHTML = standardBMI[7][0];
+                }
+
+                reportData.push([
+                    nameEle.value,
+                    ageEle.value,
+                    genderEle.value,
+                    `${feetEle.value} ${inchesEle.value}`,
+                    weightEle.value,
+                    bmiValue,
+                ]);
+                nameEle.value = "";
+                ageEle.value = "";
+                genderEle.value = "";
+                feetEle.value = "";
+                inchesEle.value = "";
+                weightEle.value = "";
+                updateDisplay();
+            }
+
+            let resultBodyEle = document.getElementById("resultBody");
+            function updateDisplay() {
+                resultBodyEle.innerHTML = "";
+                for (i = 0; i < reportData.length; i++) {
+                    let tr = document.createElement("tr");
+                    for (j = 0; j < reportData[0].length; j++) {
+                        let td = document.createElement("td");
+                        td.textContent = reportData[i][j];
+                        tr.appendChild(td);
+                    }
+                    resultBodyEle.appendChild(tr);
+                }
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        #container {
+            width: 500px;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+        }
+
+    </style>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            
+            const calculateBtn = document.getElementById('calculate-btn');
+            
+
+            calculateBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                calculate();
+
+            })
+
+            
+
+            function calculate() {
+                let weight = document.getElementById('weight').value;
+                let height = document.getElementById('height').value;
+                weight = parseFloat(weight);
+                height = parseFloat(height);
+
+                const bmi = weight / (height * 0.01)**2
+                
+                let result = document.getElementById('result');
+                let p = "";
+                p += "With your weight of " + weight + " kg and height of " +  height + " cm, Your BMI is " + bmi + ".";
+                
+                let h2 = document.getElementById('feedback');
+                let ans;
+                if (bmi < 18.5) {
+                    ans = "You are underweight."
+
+
+                } else if (bmi <= 24.9 && bmi >=18.5) {
+                    ans = "You are normal weight."
+                }else if (bmi <= 29.9 && bmi >=25.0) {
+                    ans = "You are overweight."
+                } else {
+                    ans = "You are obese."
+
+                }
+
+                h2.innerText = ans;
+                result.innerText = p;
+                document.getElementById('container').appendChild(h2);
+
+            }
+
+        })
+
+        
+    </script>
+</head>
+<body>
+    <div id="container">
+        <h2>BMI Result</h2>
+        <p id="result">No result</p>
+        <h2 id="feedback"></h2>
+        
+    </div>
+
+    <button id="reset-btn">Reset</button>
+
+    <form>
+        <h1>BMI Calculator </h1>
+        <div>
+            <span>Weight (kg): </span>
+            <input type="number" id="weight">
+        </div>
+
+        <div>
+            <span>Height (cm): </span>
+            <input type="number" id="height">
+        </div>
+
+        <button id="calculate-btn">Calculate</button>
+       
+    </form>
+    
+</body>
+</html>

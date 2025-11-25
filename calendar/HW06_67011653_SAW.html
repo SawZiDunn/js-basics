@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>2026 Calendar</title>
+        <script src="functions.js"></script>
+        <style>
+            body {
+                font-family: "Times New Roman", Times, serif;
+                background-color: skyblue;
+                margin: 0;
+                padding: 20px;
+                display: flex;
+                justify-content: center;
+                align-items: start;
+                min-height: 100vh;
+            }
+
+            .calendar-container {
+                background-color: white;
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+                max-width: 400px;
+                width: 100%;
+            }
+
+            .calendar-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 20px;
+            }
+
+            .nav-button {
+                background-color: #e0e0e0;
+                border: 1px solid #ccc;
+                padding: 8px 12px;
+                cursor: pointer;
+                border-radius: 4px;
+                font-size: 16px;
+                font-weight: bold;
+            }
+
+            .nav-button:hover {
+                background-color: #d0d0d0;
+            }
+
+            .month-year {
+                font-size: 18px;
+                font-weight: bold;
+            }
+
+            .calendar-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 10px;
+            }
+
+            .calendar-table th,
+            .calendar-table td {
+                border: 1px solid #ccc;
+                text-align: center;
+                padding: 8px;
+                width: 14.28%;
+            }
+
+            .calendar-table th {
+                background-color: #f5f5f5;
+                font-weight: bold;
+                font-size: 12px;
+            }
+
+            .calendar-table td {
+                height: 30px;
+                font-size: 14px;
+            }
+
+            .other-month {
+                color: #ccc;
+            }
+
+            .today {
+                background-color: #007bff;
+                color: white;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="calendar-container">
+            <div class="calendar-header">
+                <button class="nav-button" onclick="previousMonth()">
+                    &lt;
+                </button>
+                <div class="month-year" id="monthYear"></div>
+                <button class="nav-button" onclick="nextMonth()">&gt;</button>
+            </div>
+            <table class="calendar-table">
+                <thead>
+                    <tr>
+                        <th>Mon</th>
+                        <th>Tue</th>
+                        <th>Wed</th>
+                        <th>Thu</th>
+                        <th>Fri</th>
+                        <th>Sat</th>
+                        <th>Sun</th>
+                    </tr>
+                </thead>
+                <tbody id="calendarBody"></tbody>
+            </table>
+        </div>
+
+        <script>
+            let currentMonthOf2025 = 1;
+
+            function previousMonth() {
+                if (currentMonthOf2025 > 1) {
+                    currentMonthOf2025--;
+                    showMonthOf2025(currentMonthOf2025, 365);
+                }
+            }
+
+            function nextMonth() {
+                if (currentMonthOf2025 < 12) {
+                    currentMonthOf2025++;
+                    showMonthOf2025(currentMonthOf2025, 365);
+                }
+            }
+
+            showMonthOf2025(1, 365);
+        </script>
+    </body>
+</html>

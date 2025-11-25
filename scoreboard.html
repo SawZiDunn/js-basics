@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Score Board</title>
+
+        <script>
+            let score1;
+            let score2;
+            let result;
+            document.addEventListener("DOMContentLoaded", () => {
+                score1 = document.getElementById("score-1");
+                score2 = document.getElementById("score-2");
+                result = document.getElementById("result");
+            });
+
+            const incrementTeamA = () => {
+                score1.innerHTML = parseInt(score1.innerHTML) + 1;
+                updateResult();
+            };
+
+            const incrementTeamB = () => {
+                score2.innerHTML = parseInt(score2.innerHTML) + 1;
+                updateResult();
+            };
+
+            const updateResult = () => {
+                let x = parseInt(score1.innerHTML);
+                let y = parseInt(score2.innerHTML);
+
+                if (x > y) {
+                    result.innerHTML = "Team A is winning!";
+                } else if (x < y) {
+                    result.innerHTML = "Team B is winning!";
+                } else {
+                    result.innerHTML = "Draw";
+                }
+            };
+
+            function reset() {
+                score1.innerHTML = 0;
+                score2.innerHTML = 0;
+                result.innerHTML = "Draw";
+            }
+        </script>
+    </head>
+
+    <body>
+        <table border="1" style="border-collapse: collapse">
+            <tr>
+                <th colspan="2">Score Board</th>
+            </tr>
+
+            <tr>
+                <td>Team A</td>
+                <td>Team B</td>
+            </tr>
+            <tr>
+                <td id="score-1">0</td>
+                <td id="score-2">0</td>
+            </tr>
+
+            <tr>
+                <td>
+                    <button id="btn-1" onclick="incrementTeamA()">
+                        + Score
+                    </button>
+                </td>
+                <td>
+                    <button id="btn-2" onclick="incrementTeamB()">
+                        + Score
+                    </button>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2" id="result" style="text-align: center">Draw</td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button onclick="reset()" style="width: 100%">Reset</button>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Table</title>
+    <style>
+      table {
+        width: 200px;
+        border-collapse: collapse;
+      }
+      table,
+      th,
+      td {
+        border: 1px solid black;
+        text-align: center;
+      }
+      #number {
+        font-size: 20px;
+      }
+    </style>
+    <script>
+      function downButton() {
+        var num = document.getElementById("number");
+        var numValue = parseInt(num.innerHTML);
+        if (numValue > 0) {
+          numValue--;
+        } else {
+          numValue = 0;
+        }
+        num.innerHTML = numValue;
+      }
+      function upButton() {
+        var num = document.getElementById("number");
+        var numValue = parseInt(num.innerHTML);
+        numValue++;
+        num.innerHTML = numValue;
+      }
+    </script>
+  </head>
+  <body>
+    <table>
+      <tr>
+        <td>
+          <button id="downbtn" onclick="downButton()">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Flag_of_the_United_States.png/1200px-Flag_of_the_United_States.png"
+              width="20px"
+              height="30px"
+              alt="flag"
+            />
+          </button>
+        </td>
+        <td rowspan="2" id="number" width="100px">0</td>
+        <td>
+          <button id="upbtn" onclick="upButton()">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Flag_of_the_United_States.png/1200px-Flag_of_the_United_States.png"
+              width="20px"
+              height="30px"
+              alt="flag"
+            />
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td>down</td>
+        <td>up</td>
+      </tr>
+    </table>
+  </body>
+</html>
